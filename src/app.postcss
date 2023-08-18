@@ -2,9 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* https://fonts.google.com/specimen/Rampart+One?preview.text=Preparando%20los%20mates,&preview.text_type=custom&sort=popularity */
+@font-face {
+  font-family: 'RampartOne';
+  src: url('/fonts/RampartOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* https://fonts.google.com/specimen/Inter?preview.text=Preparando%20los%20mates,&preview.text_type=custom&sort=popularity&query=inter */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: 50% 200%;
+}
+
+
 html,
 body {
   @apply h-full overflow-hidden;
+  font-family: Inter, sans-serif;
 }
 
 body > div {
