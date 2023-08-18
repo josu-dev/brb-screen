@@ -36,7 +36,7 @@
       {/each}
     </div>
     <img
-      src="/img/mate.4.png"
+      src="/img/mate.png"
       alt=""
       class=" max-h-52 lg:max-h-none lg:w-auto"
     />
