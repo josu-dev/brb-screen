@@ -15,6 +15,7 @@
     "@iconify-json/mdi": "^1.1.53",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
+    "@vite-pwa/sveltekit": "^0.2.5",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
     "postcss-load-config": "^4.0.1",

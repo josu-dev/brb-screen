@@ -11,6 +11,9 @@ const config = {
       $cmp: "src/lib/components",
       "$cmp/*": "src/lib/components/*",
     },
+    serviceWorker: {
+      register: false,
+    }
   },
 };
 

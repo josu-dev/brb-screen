@@ -11,7 +11,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "types": [
-      "unplugin-icons/types/svelte"
-    ]
+      "unplugin-icons/types/svelte",
+    ],
   }
 }
