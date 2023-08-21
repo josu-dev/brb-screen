@@ -1,6 +1,5 @@
 <script lang="ts">
   import WavyText from '$cmp/WavyText.svelte';
-  import Footer from '$cmp/layout/Footer.svelte';
 </script>
 
 <main
@@ -29,7 +28,6 @@
       class=" max-h-52 lg:max-h-none lg:w-auto"
     />
   </div>
-  <Footer />
 </main>
 
 <style>

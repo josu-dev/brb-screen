@@ -31,6 +31,8 @@
   },
   "type": "module",
   "dependencies": {
-    "svelte-french-toast": "^1.2.0"
+    "svelte-command-palette": "^1.2.1",
+    "svelte-french-toast": "^1.2.0",
+    "tinykeys": "^2.1.0"
   }
 }

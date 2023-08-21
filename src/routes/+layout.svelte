@@ -1,7 +1,11 @@
 <script>
-  import '../app.postcss';
+  import { dev } from '$app/environment';
+  import CommandPalette from '$cmp/CommandPalette.svelte';
+  import Footer from '$cmp/layout/Footer.svelte';
   import { onMount } from 'svelte';
+  import toast, { Toaster } from 'svelte-french-toast';
   import { pwaInfo } from 'virtual:pwa-info';
+  import '../app.postcss';
 
   onMount(async () => {
     if (pwaInfo) {
@@ -10,15 +14,16 @@
       registerSW({
         immediate: true,
         onRegistered(r) {
-          // uncomment following code if you want check for updates
-          // r && setInterval(() => {
-          //    console.log('Checking for sw update')
-          //    r.update()
-          // }, 20000 /* 20s for testing purposes */)
-          console.log(`SW Registered: ${r}`);
+          if (dev) {
+            console.log(`SW Registered: ${r}`);
+          }
+          toast.success('App is ready for offline use');
         },
         onRegisterError(error) {
-          console.log('SW registration error', error);
+          if (!dev) {
+            console.log('SW registration error', error);
+          }
+          toast.error('App failed to register for offline use');
         },
       });
     }
@@ -32,17 +37,13 @@
   <title>BRB Screen</title>
 </svelte:head>
 
+<CommandPalette />
+
+<Toaster />
+
 <slot />
 
-<div
-  class="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-4 text-lg text-white"
->
-  <a href="/start">Start </a>
-  <a href="/bath">Bath </a>
-  <a href="/mate">Mate </a>
-  <a href="/unexpected">Unexpected </a>
-  <a href="/env">Env</a>
-</div>
+<Footer />
 
 {#await import('$lib/ReloadPrompt.svelte') then { default: ReloadPrompt }}
   <ReloadPrompt />

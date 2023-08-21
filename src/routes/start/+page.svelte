@@ -1,6 +1,5 @@
 <script lang="ts">
   import WavyText from '$cmp/WavyText.svelte';
-  import Footer from '$cmp/layout/Footer.svelte';
 </script>
 
 <div class="h-full bg-black">
@@ -96,7 +95,6 @@
         >
       </div>
     </div>
-    <Footer />
   </main>
 </div>
 
