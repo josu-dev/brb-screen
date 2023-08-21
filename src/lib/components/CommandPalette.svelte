@@ -9,12 +9,17 @@
     paletteStore,
   } from 'svelte-command-palette';
   import toast from 'svelte-french-toast';
+  import { useRegisterSW } from 'virtual:pwa-register/svelte';
 
   const paletteMethods = createStoreMethods();
 
   function openRepository() {
     window.open(REPOSITORY_URL, '_blank', 'noopener,noreferrer');
   }
+
+  let updateServiceWorker: ReturnType<
+    typeof useRegisterSW
+  >['updateServiceWorker'];
 
   const actions = defineActions([
     {
@@ -66,11 +71,21 @@
         openRepository();
       },
     },
+    {
+      title: 'Reload window',
+      subTitle: 'Reload the window',
+      onRun: () => {
+        window.location.reload();
+      },
+    },
   ]);
 
   let unsubscribeKeyListiners: () => void;
 
   onMount(async () => {
+    const { updateServiceWorker: update } = useRegisterSW({});
+    updateServiceWorker = update;
+
     const { tinykeys } = await import('tinykeys');
     paletteMethods.closePalette();
 

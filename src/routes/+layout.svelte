@@ -13,9 +13,9 @@
 
       registerSW({
         immediate: true,
-        onRegistered(r) {
+        onRegisteredSW(url, r) {
           if (dev) {
-            console.log(`SW Registered: ${r}`);
+            console.log('SW Registered: ', url, r);
           }
           toast.success('App is ready for offline use');
         },
