@@ -5,7 +5,7 @@
 
 <main
   class="h-full flex flex-col justify-center items-center
-  bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800  to-slate-950"
+  bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 to-slate-950"
 >
   <button
     on:click={() => {

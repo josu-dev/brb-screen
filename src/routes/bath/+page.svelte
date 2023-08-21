@@ -6,7 +6,7 @@
 <div class="h-full bg-black">
   <main
     class="h-full flex flex-col justify-center items-center
-  bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-700/50 via-blue-900/50 to-slate-950"
+  bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800/30 to-slate-950"
   >
     <button
       on:click={() => {
@@ -21,9 +21,9 @@
     <div
       class="flex flex-col justify-center gap-8 lg:gap-0 lg:grid lg:grid-rows-1 lg:grid-cols-[2fr,auto] place-items-center h-full"
     >
-      <WavyText text={['Preparando el mate,', 'ya regreso...']} />
+      <WavyText text={['Fui al baño,', 'en 5 mins', 'regreso...']} />
       <img
-        src="/img/mate.png"
+        src="/img/bath.png"
         alt=""
         class=" max-h-52 lg:max-h-none lg:w-auto"
       />
