@@ -1,7 +1,7 @@
 <script>
   import { dev } from '$app/environment';
   import CommandPalette from '$cmp/CommandPalette.svelte';
-  import Footer from '$cmp/layout/Footer.svelte';
+  import Footer from '$cmp/page/Footer.svelte';
   import { onMount } from 'svelte';
   import toast, { Toaster } from 'svelte-french-toast';
   import { pwaInfo } from 'virtual:pwa-info';
@@ -33,8 +33,8 @@
 </script>
 
 <svelte:head>
+  <meta name="theme-color" content="#020617" />
   {@html webManifestLink}
-  <title>BRB Screen</title>
 </svelte:head>
 
 <CommandPalette />

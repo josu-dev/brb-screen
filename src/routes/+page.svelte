@@ -1,4 +1,7 @@
 <script>
+  import { page } from '$app/stores';
+  import Seo from '$cmp/page/SEO.svelte';
+
   const links = [
     {
       name: 'Start',
@@ -22,6 +25,19 @@
     },
   ];
 </script>
+
+<Seo
+  siteName="BRB Screen"
+  canonical="current"
+  url="current"
+  pageTitle="BRB Screen"
+  description="A simple collections of screens to display when you're away from your stream. With a command palette to switch between them. Made with SvelteKit."
+  type="website"
+  image={{
+    url: `${$page.url.origin}/brb-screen-home.png`,
+    alt: 'BRB Screen home page',
+  }}
+/>
 
 <main
   class="h-full flex flex-col items-center justify-center gap-24 text-lg text-zinc-200
