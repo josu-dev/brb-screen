@@ -16,6 +16,17 @@
   function openRepository() {
     window.open(REPOSITORY_URL, '_blank', 'noopener,noreferrer');
   }
+  function copyCurrentUrl() {
+    const url = DEPLOY_DOMAIN + $page.url.pathname + $page.url.search;
+    navigator.clipboard.writeText(url.replace(/\/$/, '')).then(
+      () => {
+        toast.success('Copied current url to clipboard');
+      },
+      () => {
+        toast.error('Error attempting to copy current url to clipboard');
+      }
+    );
+  }
 
   let updateServiceWorker: ReturnType<
     typeof useRegisterSW
@@ -65,6 +76,28 @@
       },
     },
     {
+      title: 'Fullscreen',
+      subTitle: 'Toggle fullscreen',
+      onRun: () => {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          return;
+        }
+
+        window.document.body.requestFullscreen().catch((err) => {
+          toast.error('Error attempting to enable fullscreen mode');
+          console.error(
+            `[CommandPalette] Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+          );
+        });
+      },
+    },
+    {
+      title: 'Share current page',
+      subTitle: 'Copy a shareable link of the current page to clipboard',
+      onRun: copyCurrentUrl,
+    },
+    {
       title: 'Repository',
       subTitle: 'Open the GitHub repository for this project',
       onRun: () => {
@@ -76,6 +109,14 @@
       subTitle: 'Reload the window',
       onRun: () => {
         window.location.reload();
+      },
+    },
+    {
+      title: 'Admin mode',
+      subTitle: 'Toggle the admin mode',
+      onRun: () => {
+        document.body.contentEditable =
+          document.body.contentEditable === 'true' ? 'false' : 'true';
       },
     },
   ]);
@@ -104,10 +145,7 @@
       },
       '$mod+Space $mod+KeyC': (event) => {
         event.preventDefault();
-        navigator.clipboard.writeText(
-          DEPLOY_DOMAIN + $page.url.pathname + $page.url.search
-        );
-        toast.success('Copied current url to clipboard');
+        copyCurrentUrl();
       },
     });
   });
