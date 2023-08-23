@@ -34,7 +34,7 @@
   description="A simple collections of screens to display when you're away from your stream. With a command palette to switch between them. Made with SvelteKit."
   type="website"
   image={{
-    url: `${$page.url.origin}/brb-screen-home.png`,
+    url: `${$page.url.origin}/img/brb-screen-home.png`,
     alt: 'BRB Screen home page',
   }}
 />
