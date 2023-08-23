@@ -180,21 +180,19 @@
 
 <style lang="postcss">
   :global(.scrollbar) {
-    & {
-      @apply ml-2;
-      scrollbar-gutter: stable;
-    }
-    &::-webkit-scrollbar {
-      @apply w-4 sm:w-3;
-    }
-    &:hover::-webkit-scrollbar-track {
-      @apply bg-transparent;
-    }
-    &:hover::-webkit-scrollbar-thumb {
-      @apply bg-cyan-900/50;
-    }
-    &:hover::-webkit-scrollbar-thumb:hover {
-      @apply bg-cyan-900/90;
-    }
+    @apply ml-2;
+    scrollbar-gutter: stable;
+  }
+  :global(.scrollbar::-webkit-scrollbar) {
+    @apply w-4 sm:w-3;
+  }
+  :global(.scrollbar:hover::-webkit-scrollbar-track) {
+    @apply bg-transparent;
+  }
+  :global(.scrollbar:hover::-webkit-scrollbar-thumb) {
+    @apply bg-cyan-900/50;
+  }
+  :global(.scrollbar:hover::-webkit-scrollbar-thumb:hover) {
+    @apply bg-cyan-900/90;
   }
 </style>
