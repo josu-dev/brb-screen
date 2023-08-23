@@ -169,8 +169,8 @@
   overlayClass="fixed inset-0 flex z-1 [&>div]:shadow-none [&>div]:contents"
   paletteWrapperInnerClass="m-auto border border-zinc-500/25 mt-[10vh] flex flex-col rounded bg-zinc-900 max-h-[80vh] w-[90vw] sm:w-[80vw] sm:max-w-screen-sm overflow-y-hidden shadow-2xl shadow-black [&>form]:py-3 [&>form]:px-2"
   inputClass="px-2 py-1 w-full text-base text-zinc-200 bg-zinc-800 rounded-sm outline-none focus:outline-none focus:ring-1 ring-cyan-600"
-  resultsContainerClass=" sm:max-h-[40vh] mb-3 overflow-y-auto scrollbar"
-  resultContainerClass="px-3 py-2 rounded text-zinc-200 opacity-75"
+  resultsContainerClass="sm:max-h-[40vh] mb-3 overflow-y-auto scrollbar"
+  resultContainerClass="px-3 py-2 rounded text-zinc-200 opacity-75 cursor-pointer"
   optionSelectedClass="bg-cyan-950/50 opacity-100"
   titleClass="text-zinc-100 text-base"
   subtitleClass="text-zinc-200 font-light text-sm"
@@ -194,5 +194,27 @@
   }
   :global(.scrollbar:hover::-webkit-scrollbar-thumb:hover) {
     @apply bg-cyan-900/90;
+  }
+
+  /* https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x */
+  :global(input::-webkit-search-cancel-button) {
+    -webkit-appearance: none;
+    height: 1.1em;
+    width: 1.1em;
+    border-radius: 50em;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
+      no-repeat 50% 50%;
+    background-size: contain;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+  }
+  :global(input:focus::-webkit-search-cancel-button) {
+    opacity: 0.3;
+    pointer-events: all;
+    filter: invert(1);
+  }
+  :global(input:focus::-webkit-search-cancel-button:hover) {
+    opacity: 0.5;
   }
 </style>
