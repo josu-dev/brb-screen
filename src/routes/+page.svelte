@@ -53,7 +53,7 @@
   </header>
   <div class="flex flex-col items-center justify-center gap-4">
     <h2 class="text-xl font-semibold tracking-wide">
-      Default availible screens:
+      Default available screens:
     </h2>
     <div
       class="flex items-center justify-between gap-4 [&_a:hover]:underline [&_a]:underline-offset-2"

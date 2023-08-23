@@ -3,4 +3,8 @@
     "source.organizeImports": true
   },
   "files.trimFinalNewlines": true,
+  "tailwindCSS.experimental.classRegex": [
+    "Class=\"([^\"]*)\"",
+    "Class='([^']*)'",
+  ]
 }
