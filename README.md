@@ -1,6 +1,6 @@
 # BRB Screen
 
-A simple PWA for displaying a BRB screen when you're away from your stream for a moment.
+A simple PWA for displaying brb scenes when you're away from your stream for a moment.
 
 Powered by [SvelteKit](https://kit.svelte.dev/) ❤.
 
