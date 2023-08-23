@@ -11,7 +11,7 @@
       class="flex flex-col justify-center gap-8 lg:gap-0 lg:grid lg:grid-rows-1 lg:grid-cols-[2fr,auto] place-items-center h-full text-black"
     >
       <WavyText text={['Ya estamos por', 'empezar...']} />
-      <div class=" text-[16rem] ml-24">
+      <div class=" text-[16rem] lg:ml-24">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16rem"

@@ -48,9 +48,3 @@
 {#await import('$lib/ReloadPrompt.svelte') then { default: ReloadPrompt }}
   <ReloadPrompt />
 {/await}
-
-<style lang="postcss">
-  :global(body) {
-    @apply bg-slate-950;
-  }
-</style>
