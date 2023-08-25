@@ -9,6 +9,7 @@ const config = {
   },
 
   plugins: [
+    require('@tailwindcss/forms'),
     plugin(function ({ addBase, addComponents, addUtilities, theme }) {
       // addBase()
       // addComponents()

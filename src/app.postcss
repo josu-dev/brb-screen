@@ -33,3 +33,143 @@ body {
 body > div {
   @apply h-full overflow-hidden;
 }
+
+
+.splitpanes.brb-screen {
+  .splitpanes__pane {
+    background-color: transparent;
+  }
+  .splitpanes__splitter {
+    background-color: rgb(59 130 246 / 75);
+    position: relative;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    /* effect when pointer is over the splitter */
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: opacity 0.25s;
+      background-color: rgb(59 130 246 / 75);
+      opacity: 0;
+      z-index: 1;
+    }
+    &:hover:before {
+      opacity: 0.75;
+    }
+    &.splitpanes__splitter__active {
+      z-index: 2; /* Fix an issue of overlap fighting with a near hovered splitter */
+    }
+  }
+}
+.brb-screen {
+  &.splitpanes--vertical > .splitpanes__splitter:before {
+    left: -4px;
+    right: -4px;
+    height: 100%;
+    cursor: col-resize;
+  }
+  &.splitpanes--horizontal > .splitpanes__splitter:before {
+    top: -4px;
+    bottom: -4px;
+    width: 100%;
+    cursor: row-resize;
+  }
+}
+
+.splitpanes.no-splitter {
+  .splitpanes__pane {
+    background-color: #f8f8f8;
+  }
+  .splitpanes__splitter {
+    background-color: #ccc;
+    position: relative;
+  }
+}
+.no-splitter {
+  &.splitpanes--horizontal > .splitpanes__splitter:before {
+    width: 0.125rem;
+    pointer-events: none;
+    cursor: none;
+  }
+  &.splitpanes--vertical > .splitpanes__splitter:before {
+    height: 0.125rem;
+    pointer-events: none;
+    cursor: none;
+  }
+}
+
+/* 
+.splitpanes.default-theme .splitpanes__pane {
+  background-color: transparent;
+}
+.splitpanes.default-theme .splitpanes__splitter {
+  background-color: #fff;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+}
+.splitpanes.default-theme .splitpanes__splitter:before, .splitpanes.default-theme .splitpanes__splitter:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s;
+}
+.splitpanes.default-theme .splitpanes__splitter:hover:before, .splitpanes.default-theme .splitpanes__splitter:hover:after {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.splitpanes.default-theme .splitpanes__splitter:first-child {
+  cursor: auto;
+}
+
+.default-theme.splitpanes .splitpanes .splitpanes__splitter {
+  z-index: 1;
+}
+.default-theme.splitpanes--vertical > .splitpanes__splitter,
+.default-theme .splitpanes--vertical > .splitpanes__splitter {
+  width: 7px;
+  border-left: 1px solid #eee;
+  cursor: col-resize;
+}
+.default-theme.splitpanes--vertical > .splitpanes__splitter:before, .default-theme.splitpanes--vertical > .splitpanes__splitter:after,
+.default-theme .splitpanes--vertical > .splitpanes__splitter:before,
+.default-theme .splitpanes--vertical > .splitpanes__splitter:after {
+  transform: translateY(-50%);
+  width: 1px;
+  height: 30px;
+}
+.default-theme.splitpanes--vertical > .splitpanes__splitter:before,
+.default-theme .splitpanes--vertical > .splitpanes__splitter:before {
+  margin-left: -2px;
+}
+.default-theme.splitpanes--vertical > .splitpanes__splitter:after,
+.default-theme .splitpanes--vertical > .splitpanes__splitter:after {
+  margin-left: 1px;
+}
+.default-theme.splitpanes--horizontal > .splitpanes__splitter,
+.default-theme .splitpanes--horizontal > .splitpanes__splitter {
+  height: 7px;
+  border-top: 1px solid #eee;
+  cursor: row-resize;
+}
+.default-theme.splitpanes--horizontal > .splitpanes__splitter:before, .default-theme.splitpanes--horizontal > .splitpanes__splitter:after,
+.default-theme .splitpanes--horizontal > .splitpanes__splitter:before,
+.default-theme .splitpanes--horizontal > .splitpanes__splitter:after {
+  transform: translateX(-50%);
+  width: 30px;
+  height: 1px;
+}
+.default-theme.splitpanes--horizontal > .splitpanes__splitter:before,
+.default-theme .splitpanes--horizontal > .splitpanes__splitter:before {
+  margin-top: -2px;
+}
+.default-theme.splitpanes--horizontal > .splitpanes__splitter:after,
+.default-theme .splitpanes--horizontal > .splitpanes__splitter:after {
+  margin-top: 1px;
+} */
