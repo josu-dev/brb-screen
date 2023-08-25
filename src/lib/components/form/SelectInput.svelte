@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { get } from 'svelte/store';
   import type { FormPathLeaves, ZodValidation } from 'sveltekit-superforms';
   import type { SuperForm } from 'sveltekit-superforms/client';
   import { formFieldProxy } from 'sveltekit-superforms/client';
@@ -23,6 +24,7 @@
   export let className = '';
 
   const { value, errors, constraints } = formFieldProxy(form, field);
+  const initialValue = preSelected ?? get(value);
 </script>
 
 <div class=" mt-2 {className}">
@@ -58,7 +60,7 @@
         <slot name="options" />
       {:else if options}
         {#each options as option}
-          <option value={option.value} selected={option.value === preSelected}>
+          <option value={option.value} selected={option.value === initialValue}>
             {option.text}
           </option>
         {/each}

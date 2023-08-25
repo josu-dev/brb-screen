@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import toast from 'svelte-french-toast';
   import type { Action } from 'svelte/action';
-  import CopyIcon from '~icons/tabler/clipboard-copy';
+  import CopyIcon from '~icons/tabler/copy';
 
   export let value: string;
   export let field: string;
@@ -52,9 +52,9 @@
       type="button"
       on:click|preventDefault={copyText}
       on:click={() => dispatch('copy', 'button')}
-      class="ml-2 sliding text-lg text-zinc-300 hover:text-zinc-100 hover:shadow-xl shadow-white transition-colors"
+      class="ml-3 text-lg text-zinc-300 hover:text-zinc-100 shadow ring-zinc-300 hover:ring-1 rounded hover:ring-zinc-100"
     >
-      <CopyIcon />
+      <CopyIcon class="-rotate-90" />
     </button>
     {#if $$slots.oppositeToLabel}
       <slot name="oppositeToLabel" />

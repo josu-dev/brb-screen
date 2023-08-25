@@ -1,4 +1,5 @@
-import { configSchema } from '$lib/editor/validation';
+import { configSchema, encodeEditorConfig } from '$lib/editor/validation';
+import { redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -13,22 +14,27 @@ export const load = (async () => {
 
 
 export const actions = {
-  goto: async ({ request, url }) => {
+  gotourl: async ({ request, url }) => {
     const configForm = await superValidate(request, configSchema);
     if (!configForm.valid) {
       console.error(configForm.errors);
 
       return {
-        configForm
+        configForm,
       };
     }
 
-    // const message = configForm.data.message ?? 'BRB - Be Right Back!';
-    // const img_url = configForm.data.img_url ?? 'https://i.imgur.com/removed.png';
-    // const css_bg_style = configForm.data.css_bg_style ?? 'background-color: #000000; color: #ffffff;';
+    const generatedURL = url.origin + '/screen' + encodeEditorConfig(
+      configForm.data.msg ?? '',
+      configForm.data.msg_color ?? '',
+      configForm.data.msg_align ?? '',
+      configForm.data.img_url ?? '',
+      configForm.data.img_width ?? '',
+      configForm.data.img_height ?? '',
+      configForm.data.img_obj_fit ?? '',
+      configForm.data.bg_style ?? ''
+    );
 
-    // const screenUrl = url.origin + '/screen' + encodeEditorConfig(message, img_url, css_bg_style);
-
-    // throw redirect(303, screenUrl);
+    throw redirect(303, generatedURL);
   },
 } as Actions;

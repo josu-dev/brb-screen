@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { stopPropagation } from '$lib/actions';
   import type { FormPathLeaves, ZodValidation } from 'sveltekit-superforms';
   import type { SuperForm } from 'sveltekit-superforms/client';
   import { formFieldProxy } from 'sveltekit-superforms/client';
@@ -14,7 +15,9 @@
   export let readonly = false;
   export let autocomplete = 'off';
   export let spellcheck = false;
+  export let startRows = 3;
   export let textAreaMaxHeight = '140px';
+  export let stopKeydownPropagation = false;
 
   const { value, errors, constraints } = formFieldProxy(form, field);
 </script>
@@ -39,6 +42,7 @@
       {spellcheck}
       bind:value={$value}
       aria-invalid={!!$errors || undefined}
+      rows={startRows}
       {...$constraints}
       {...$$restProps}
       class=" mt-2 block w-full rounded-md min-h-[80px] border-none py-1.5
@@ -46,6 +50,7 @@
       placeholder:text-zinc-600 sm:text-sm sm:leading-6
       ring-1 ring-inset ring-blue-900"
       style="max-height: {textAreaMaxHeight};"
+      use:stopPropagation={stopKeydownPropagation ? 'keydown' : false}
     />
     {#if $errors}
       <p class=" text-sm text-red-500">
