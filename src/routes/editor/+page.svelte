@@ -58,7 +58,7 @@
 </script>
 
 <main
-  class="2xl:max-w-[112rem] mx-auto flex w-full h-full max-h-full text-zinc-200"
+  class="2xl:max-w-[112rem] mx-auto flex w-full h-full max-h-full text-zinc-200 bg-slate-950"
 >
   <Splitpanes theme="brb-screen">
     <Pane size={35} minSize={25}>
