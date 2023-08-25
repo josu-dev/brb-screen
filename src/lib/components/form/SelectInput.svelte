@@ -20,11 +20,12 @@
    */
   export let preSelected: string | undefined = undefined;
   export let options: Option[] | undefined = undefined;
+  export let className = '';
 
   const { value, errors, constraints } = formFieldProxy(form, field);
 </script>
 
-<div class=" mt-2">
+<div class=" mt-2 {className}">
   <div class=" flex justify-between text-sm font-medium">
     <label for={field} class=" max-w-fit text-zinc-100">
       {label}

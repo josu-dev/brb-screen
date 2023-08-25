@@ -1,5 +1,6 @@
 <script lang="ts">
   export let text: string | string[];
+  export let textAlign: 'left' | 'center' | 'right' = 'center';
 
   const charCount =
     typeof text === 'string'
@@ -45,6 +46,7 @@
     <div
       class="wavy"
       style="
+      --wavy-text-align: {textAlign};
       --wavy-animation: wavy-{charCount};
       --wavy-reflex-animation: wavy-reflex-{charCount};
       --wavy-delay: {animationDelay}s;
@@ -63,6 +65,7 @@
     <div
       class="wavy flex flex-col gap-4 lg:gap-8"
       style="
+      --wavy-text-align: {textAlign};
       --wavy-animation: wavy-{charCount};
       --wavy-reflex-animation: wavy-reflex-{charCount};
       --wavy-delay: {animationDelay}s;
@@ -90,7 +93,8 @@
 
 <style lang="postcss">
   .wavy {
-    @apply text-3xl lg:text-6xl text-center uppercase text-white;
+    text-align: var(--wavy-text-align);
+    @apply text-3xl lg:text-6xl uppercase text-current;
   }
   .wavy span {
     position: relative;

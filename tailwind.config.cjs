@@ -16,6 +16,13 @@ const config = {
       addUtilities({
         '.box-dev': {
           'boxShadow': '0 0 0 1px #ff00ff'
+        },
+        '.scrollbar-hidden': {
+          'scrollbarWidth': 'none',
+          '-ms-overflow-style': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
         }
       })
     })

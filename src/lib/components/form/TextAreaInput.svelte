@@ -13,6 +13,8 @@
   export let hint: string | undefined = undefined;
   export let readonly = false;
   export let autocomplete = 'off';
+  export let spellcheck = false;
+  export let textAreaMaxHeight = '140px';
 
   const { value, errors, constraints } = formFieldProxy(form, field);
 </script>
@@ -34,14 +36,16 @@
       name={field}
       {autocomplete}
       {readonly}
+      {spellcheck}
       bind:value={$value}
       aria-invalid={!!$errors || undefined}
       {...$constraints}
       {...$$restProps}
-      class=" mt-2 block w-full rounded-md max-h-[140px] min-h-[80px] border-none py-1.5
+      class=" mt-2 block w-full rounded-md min-h-[80px] border-none py-1.5
       text-zinc-100 bg-zinc-900 shadow-sm
       placeholder:text-zinc-600 sm:text-sm sm:leading-6
       ring-1 ring-inset ring-blue-900"
+      style="max-height: {textAreaMaxHeight};"
     />
     {#if $errors}
       <p class=" text-sm text-red-500">

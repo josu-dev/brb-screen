@@ -1,6 +1,6 @@
 <script>
   import { dev } from '$app/environment';
-  import CommandPalette from '$cmp/CommandPalette.svelte';
+  import CommandPalette from '$cmp/cmdpalette/CommandPalette.svelte';
   import Footer from '$cmp/page/Footer.svelte';
   import { onMount } from 'svelte';
   import toast, { Toaster } from 'svelte-french-toast';

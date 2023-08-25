@@ -14,10 +14,13 @@
   export let readonly: boolean = false;
   export let autocomplete: string = 'off';
 
+  export let className = '';
+  export let classInputText = '';
+
   const { value, errors, constraints } = formFieldProxy(form, field);
 </script>
 
-<div class=" mt-2">
+<div class=" mt-2 {className}">
   <div class=" flex justify-between text-sm font-medium">
     <label for={field} class=" max-w-fit text-zinc-100">
       {label}
@@ -40,9 +43,9 @@
         aria-invalid={!!$errors || undefined}
         {...$constraints}
         {...$$restProps}
-        class=" mt-2 block w-16 rounded-md border-none px-[2px] h-auto
+        class=" mt-2 block w-16 rounded-md border-none h-auto
         text-zinc-100 bg-zinc-900 shadow-sm
-        placeholder:text-zinc-600 
+        placeholder:text-zinc-600
         ring-1 ring-inset ring-blue-900"
       />
       <input
@@ -50,7 +53,7 @@
         class=" mt-2 block w-full rounded-md border-none py-1.5
         text-zinc-100 bg-zinc-900 shadow-sm
         placeholder:text-zinc-600 sm:text-sm sm:leading-6
-        ring-1 ring-inset ring-blue-900"
+        ring-1 ring-inset ring-blue-900 {classInputText}"
         bind:value={$value}
       />
     </div>
@@ -70,33 +73,29 @@
     content: ' *';
     color: red;
   }
-  input[type="color"] {
-	-webkit-appearance: none;
-	border: none;
-  @apply bg-zinc-900;
-	/* width: 32px;
-	height: 32px; */
-  /* height: 16px; */
-  overflow: visible;
-}
-input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0;
-  @apply bg-zinc-900;
-  padding-block: 2px;
-  overflow: visible;
-}
-input[type="color"]::-webkit-color-swatch {
-	border: none;
-  @apply rounded;
-}
-input[type="color"]:focus {
+
+  input[type='color'] {
+    -webkit-appearance: none;
+    @apply rounded;
+    @apply ring-1 ring-inset ring-blue-600;
+  }
+  input[type='color']::-webkit-color-swatch-wrapper {
+    -webkit-appearance: none;
+    padding: 3px;
+    @apply w-full h-full rounded;
+    @apply ring-1 ring-inset ring-blue-900;
+  }
+  input[type='color']::-webkit-color-swatch {
+    @apply w-full h-full m-0 p-0 border-0 rounded-sm;
+  }
+  input[type='color']:focus::-webkit-color-swatch-wrapper {
     @apply ring-2 ring-blue-600;
   }
-  input:focus {
-	  -webkit-appearance: none;
+
+  input[type='text']:focus {
     @apply ring-2 ring-blue-600;
-  overflow: visible;
   }
+
   input:read-only {
     @apply cursor-text bg-zinc-900 ring-zinc-800;
   }

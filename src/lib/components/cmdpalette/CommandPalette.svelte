@@ -10,6 +10,7 @@
   } from 'svelte-command-palette';
   import toast from 'svelte-french-toast';
   import { useRegisterSW } from 'virtual:pwa-register/svelte';
+  import './CommandPalette.postcss';
 
   export let startOpen = false;
 
@@ -18,6 +19,7 @@
   function openRepository() {
     window.open(REPOSITORY_URL, '_blank', 'noopener,noreferrer');
   }
+
   function copyCurrentUrl() {
     const url = DEPLOY_DOMAIN + $page.url.pathname + $page.url.search;
     navigator.clipboard.writeText(url.replace(/\/$/, '')).then(
@@ -166,7 +168,7 @@
   commands={actions}
   unstyled
   placeholder="Search for a command..."
-  overlayClass="fixed inset-0 flex z-1 [&>div]:shadow-none [&>div]:contents"
+  overlayClass="command-palette fixed inset-0 flex z-10 [&>div]:shadow-none [&>div]:contents"
   paletteWrapperInnerClass="m-auto border border-zinc-500/25 mt-[10vh] flex flex-col rounded bg-zinc-900 max-h-[80vh] w-[90vw] sm:w-[80vw] sm:max-w-screen-sm overflow-y-hidden shadow-2xl shadow-black [&>form]:py-3 [&>form]:px-2"
   inputClass="px-2 py-1 w-full text-base text-zinc-200 bg-zinc-800 rounded-sm outline-none focus:outline-none focus:ring-1 ring-cyan-600"
   resultsContainerClass="sm:max-h-[40vh] mb-3 overflow-y-auto scrollbar"
@@ -177,44 +179,3 @@
   descriptionClass="text-zinc-200 font-light text-sm"
   keyboardButtonClass="hidden"
 />
-
-<style lang="postcss">
-  :global(.scrollbar) {
-    @apply ml-2;
-    scrollbar-gutter: stable;
-  }
-  :global(.scrollbar::-webkit-scrollbar) {
-    @apply w-4 sm:w-3;
-  }
-  :global(.scrollbar:hover::-webkit-scrollbar-track) {
-    @apply bg-transparent;
-  }
-  :global(.scrollbar:hover::-webkit-scrollbar-thumb) {
-    @apply bg-cyan-900/50;
-  }
-  :global(.scrollbar:hover::-webkit-scrollbar-thumb:hover) {
-    @apply bg-cyan-900/90;
-  }
-
-  /* https://stackoverflow.com/questions/20804016/editing-input-type-search-pseudo-element-button-x */
-  :global(input::-webkit-search-cancel-button) {
-    -webkit-appearance: none;
-    height: 1.1em;
-    width: 1.1em;
-    border-radius: 50em;
-    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
-      no-repeat 50% 50%;
-    background-size: contain;
-    opacity: 0;
-    pointer-events: none;
-    cursor: pointer;
-  }
-  :global(input:focus::-webkit-search-cancel-button) {
-    opacity: 0.3;
-    pointer-events: all;
-    filter: invert(1);
-  }
-  :global(input:focus::-webkit-search-cancel-button:hover) {
-    opacity: 0.5;
-  }
-</style>
