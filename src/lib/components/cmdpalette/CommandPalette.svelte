@@ -32,6 +32,22 @@
     );
   }
 
+  async function requestBodyFullscreen() {
+    if (document.fullscreenElement) {
+      if (document.fullscreenElement === document.body) {
+        return;
+      }
+      await document.exitFullscreen();
+    }
+
+    window.document.body.requestFullscreen().catch((err) => {
+      toast.error('Error attempting to enable fullscreen mode');
+      console.error(
+        `[CommandPalette] Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+      );
+    });
+  }
+
   let updateServiceWorker: ReturnType<
     typeof useRegisterSW
   >['updateServiceWorker'];
@@ -45,38 +61,45 @@
       },
     },
     {
-      title: 'Screen Mate',
+      title: 'BRB Mate',
       subTitle: 'Go to the mate brb screen',
       onRun: () => {
-        goto('/mate');
+        goto('/mate').then(requestBodyFullscreen);
       },
     },
     {
-      title: 'Screen Bath',
+      title: 'BRB Bath',
       subTitle: 'Go to the bath brb screen',
       onRun: () => {
-        goto('/bath');
+        goto('/bath').then(requestBodyFullscreen);
       },
     },
     {
-      title: 'Screen Start',
+      title: 'BRB Start',
       subTitle: 'Go to the start brb screen',
       onRun: () => {
-        goto('/start');
+        goto('/start').then(requestBodyFullscreen);
       },
     },
     {
-      title: 'Screen Unexpected',
+      title: 'BRB Unexpected',
       subTitle: 'Go to the unexpected brb screen',
       onRun: () => {
-        goto('/unexpected');
+        goto('/unexpected').then(requestBodyFullscreen);
       },
     },
     {
-      title: 'Screen Env',
+      title: 'BRB Env',
       subTitle: 'Go to the env brb screen',
       onRun: () => {
-        goto('/env');
+        goto('/env').then(requestBodyFullscreen);
+      },
+    },
+    {
+      title: 'Editor',
+      subTitle: 'Open the built-in screen editor',
+      onRun: () => {
+        goto('/editor');
       },
     },
     {
