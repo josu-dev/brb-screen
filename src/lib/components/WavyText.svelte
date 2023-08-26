@@ -1,22 +1,25 @@
 <script lang="ts">
   export let text: string | string[];
   export let textAlign: 'left' | 'center' | 'right' = 'center';
-
-  const charCount =
-    typeof text === 'string'
-      ? text.length
-      : text.reduce((acc, line) => acc + line.length, 0);
+  export let className = '';
 
   const waveDuration = 0.4;
   const animationDelay = 0.1;
   const repeatDelay = 4;
-  const animationDuration =
+
+  $: charCount =
+    typeof text === 'string'
+      ? text.length
+      : text.reduce((acc, line) => acc + line.length, 0);
+
+  $: animationDuration =
     waveDuration + charCount * animationDelay + repeatDelay;
 
-  const endPercentage = (waveDuration * 2 * 100) / animationDuration;
-  const resetPercentage = endPercentage * 0.4;
+  $: endPercentage = (waveDuration * 2 * 100) / animationDuration;
 
-  const keyframes = `<style>
+  $: resetPercentage = endPercentage * 0.4;
+
+  $: keyframes = `<style>
 @keyframes wavy-${charCount} {
   0%,
   ${resetPercentage}%,
@@ -40,7 +43,7 @@
 </style>`;
 </script>
 
-<div>
+<div class={className}>
   {@html keyframes}
   {#if typeof text === 'string'}
     <div
