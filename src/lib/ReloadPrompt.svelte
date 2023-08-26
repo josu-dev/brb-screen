@@ -23,17 +23,18 @@
     offlineReady.set(false);
     needRefresh.set(false);
   };
-  $: toast = $offlineReady || $needRefresh;
+  // $: toast = $offlineReady || $needRefresh;
+  $: toast = $needRefresh;
 </script>
 
 {#if toast}
   <div class="pwa-toast" role="alert">
     <div class="message">
-      {#if $offlineReady}
+      <!-- {#if $offlineReady}
         <span> App ready to work offline </span>
-      {:else}
-        <span> New content available, click on reload button to update. </span>
-      {/if}
+      {:else} -->
+      <span> New content available, click on reload button to update. </span>
+      <!-- {/if} -->
     </div>
     {#if $needRefresh}
       <button on:click={() => updateServiceWorker(true)}> Reload </button>

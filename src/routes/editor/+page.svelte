@@ -18,6 +18,7 @@
   import DebugIcon from '~icons/carbon/debug';
   import FullscreenIcon from '~icons/mdi/fullscreen';
   import ReloadIcon from '~icons/tabler/reload';
+  import './splitpanesreset.postcss';
 
   const ENABLE_DEBUG = dev && true;
 
