@@ -1,56 +1,64 @@
 import { textAlign } from '$lib/editor/enums';
-import { screenConfigSchema } from '$lib/editor/validation';
+import { compactScreenConfigSchema, type SafeScreenConfig } from '$lib/editor/validation';
 import { makeSearchParamsSchema } from '$lib/searchParams';
-import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 
-const defaultConfig = {
-  msg: 'Custom message\n<3',
+const FALLBACK_CONFIG = {
+  msg: 'no configuration\nprovided',
   msg_color: '#f0f0f0',
   msg_align: textAlign.center,
-  img_url: `/img/test.svg`,
-  img_width: '200px',
-  img_height: '300px',
+  img_url: '',
+  img_width: '',
+  img_height: '',
   img_obj_fit: textAlign.center,
-  bg_style: `background-color: black;`,
-  // bg_style: `background-image: radial-gradient(at right bottom, #4c0519, #500724);`,
-  // bg_style: `background-image: radial-gradient(at left top, rgb(15, 23, 42), rgb(88, 28, 135), rgb(15, 23, 42));`,
+  bg_style: `background-image: linear-gradient(rgb(0, 0, 0), rgb(2 6 23), rgb(0, 0, 0))`,
 } as const;
 
 
-const searchParamsSchema = makeSearchParamsSchema(screenConfigSchema);
+const searchParamsSchema = makeSearchParamsSchema(compactScreenConfigSchema);
 
 
 export const load = (async ({ url }) => {
   const query = searchParamsSchema.safeParse(url.searchParams);
   if (!query.success) {
     console.error(JSON.stringify(query.error, null, 2));
-    throw redirect(303, '/');
+
+    return FALLBACK_CONFIG;
   }
 
-  if (query.data.j) {
-    const json = query.data.j;
+  const config = query.data;
+
+  if (config.j) {
+    const json = config.j;
+    if (!json.m && !json.iu && !json.bs) {
+      return FALLBACK_CONFIG;
+    }
+
     return {
-      msg: json.m || defaultConfig.msg,
-      msg_color: json.mc || defaultConfig.msg_color,
-      msg_align: json.ma || defaultConfig.msg_align,
+      msg: json.m ?? '',
+      msg_color: json.mc || FALLBACK_CONFIG.msg_color,
+      msg_align: json.ma || FALLBACK_CONFIG.msg_align,
       img_url: json.iu,
-      img_width: json.iw || defaultConfig.img_width,
-      img_height: json.ih || defaultConfig.img_height,
-      img_obj_fit: json.io || defaultConfig.img_obj_fit,
-      bg_style: json.bs || defaultConfig.bg_style,
+      img_width: json.iw || FALLBACK_CONFIG.img_width,
+      img_height: json.ih || FALLBACK_CONFIG.img_height,
+      img_obj_fit: json.io || FALLBACK_CONFIG.img_obj_fit,
+      bg_style: json.bs,
     };
   }
 
+  if (!config.m && !config.iu && !config.bs) {
+    return FALLBACK_CONFIG;
+  }
+
   return {
-    msg: query.data.m || defaultConfig.msg,
-    msg_color: query.data.mc || defaultConfig.msg_color,
-    msg_align: query.data.ma || defaultConfig.msg_align,
-    img_url: query.data.iu,
-    img_width: query.data.iw || defaultConfig.img_width,
-    img_height: query.data.ih || defaultConfig.img_height,
-    img_obj_fit: query.data.io || defaultConfig.img_obj_fit,
-    bg_style: query.data.bs,
+    msg: config.m ?? '',
+    msg_color: config.mc || FALLBACK_CONFIG.msg_color,
+    msg_align: config.ma || FALLBACK_CONFIG.msg_align,
+    img_url: config.iu,
+    img_width: config.iw || FALLBACK_CONFIG.img_width,
+    img_height: config.ih || FALLBACK_CONFIG.img_height,
+    img_obj_fit: config.io || FALLBACK_CONFIG.img_obj_fit,
+    bg_style: config.bs,
   };
-}) satisfies PageLoad;
+}) satisfies PageLoad<SafeScreenConfig>;

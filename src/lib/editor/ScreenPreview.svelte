@@ -1,76 +1,88 @@
 <script lang="ts">
   import Debug from '$cmp/Debug.svelte';
   import WavyText from '$cmp/WavyText.svelte';
-  import { t, type ObjectFit, type TextAlign } from '$lib/editor/enums';
+  import Footer from '$cmp/page/Footer.svelte';
+  import { t } from '$lib/editor/enums';
+  import toast from 'svelte-french-toast';
+  import type { SafeScreenConfig } from './validation';
 
-  export let config: {
-    msg: string;
-    msg_color: string;
-    msg_align: TextAlign;
-    img_url?: string | undefined;
-    img_width: string;
-    img_height: string;
-    img_obj_fit: ObjectFit;
-    bg_style?: string | undefined;
-  };
+  export let config: SafeScreenConfig;
 
   export let debug = false;
+
+  let container: HTMLElement;
 
   let resetKey = 0;
   export function reset() {
     resetKey += 1;
   }
+
   export function toggleDebug() {
     debug = !debug;
   }
 
-  $: message = config.msg ?? '';
-  $: messageColor = config.msg_color;
+  export async function fullscreen() {
+    container.requestFullscreen().catch((err) => {
+      toast.error('Error attempting to enter editor preview fullscreen');
+      console.error(
+        `[Editor] Error attempting to enter editor preview fullscreen: ${err.message} (${err.name})`
+      );
+    });
+  }
+
+  $: message = config.msg;
+  $: messageColor = config.msg_color.trim();
   $: messageAlign = config.msg_align;
-  $: imgURL = config.img_url;
-  $: imgWidth = config.img_width;
-  $: imgHeight = config.img_height;
+  $: imgURL = config.img_url?.trim();
+  $: imgWidth = config.img_width.trim();
+  $: imgHeight = config.img_height.trim();
   $: imgObjectFit = config.img_obj_fit;
-  $: bgStyle = config.bg_style;
+  $: bgStyle = config.bg_style?.trim();
 </script>
 
 {#key resetKey}
-  <div
+  <section
+    bind:this={container}
     class="preview-container w-full max-w-full aspect-video overflow-hidden resize relative bg-black"
   >
     {#if debug}
-      <div class="absolute inset-0 z-10 overflow-auto pointer-events-none scrollbar-hidden">
+      <div class="absolute top-0 right-0 left-0 z-10">
         <Debug data={config} />
       </div>
     {/if}
-    <section
+
+    <div
       class="h-full flex flex-col justify-center items-center"
       style={bgStyle ? bgStyle : undefined}
     >
       <div
-        class="flex flex-col justify-center gap-8 lg:gap-0 lg:grid lg:grid-rows-1 {imgURL
-          ? 'lg:grid-cols-2'
+        class="flex flex-col justify-center gap-8 lg:gap-0 lg:w-full lg:grid lg:grid-rows-1 {imgURL
+          ? 'lg:grid-cols-[2fr,auto,minmax(2rem,5%),auto,2fr]'
           : ''} place-items-center h-full"
-        style="color: {messageColor};
-      --img-width: {imgWidth};
-      --img-height: {imgHeight};"
+        style="
+        color: {messageColor};
+        --img-width: {imgWidth};
+        --img-height: {imgHeight};"
       >
         <WavyText
           text={message.split('\n')}
           textAlign={t.textAlign[messageAlign]}
+          className={imgURL ? 'lg:w-max lg:col-start-2' : ''}
         />
         {#if imgURL}
           <img
             src={imgURL}
             alt=""
-            class=" max-h-52 lg:max-h-none {t.objectFit[
+            class="col-start-4 max-h-52 lg:max-h-none {t.objectFit[
               imgObjectFit
             ]} w-[var(--img-width)] h-[var(--img-height)] rounded"
           />
         {/if}
       </div>
-    </section>
-  </div>
+    </div>
+
+    <Footer display="absolute" />
+  </section>
 {/key}
 
 <style lang="postcss">

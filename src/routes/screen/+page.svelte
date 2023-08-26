@@ -1,26 +1,14 @@
-<script lang="ts" context="module">
-  const msgAlign = {
-    [textAlign.left]: 'left',
-    [textAlign.center]: 'center',
-    [textAlign.right]: 'right',
-  } as const;
-  const objFit = {
-    [objectFit.fill]: 'object-fill',
-    [objectFit.contain]: 'object-contain',
-    [objectFit.cover]: 'object-cover',
-    [objectFit.none]: 'object-none',
-    [objectFit.scaleDown]: 'object-scale-down',
-  } as const;
-</script>
-
 <script lang="ts">
+  import { dev } from '$app/environment';
   import Debug from '$cmp/Debug.svelte';
   import WavyText from '$cmp/WavyText.svelte';
-  import { objectFit, textAlign } from '$lib/editor/enums';
+  import { t } from '$lib/editor/enums';
+
+  const DEBUG = dev && false;
 
   export let data;
 
-  $: message = data.msg ?? '';
+  $: message = data.msg;
   $: messageColor = data.msg_color;
   $: messageAlign = data.msg_align;
   $: imgURL = data.img_url;
@@ -30,8 +18,8 @@
   $: bgStyle = data.bg_style;
 </script>
 
-{#if false}
-  <div class="fixed inset-0 z-10 overflow-auto pointer-events-none">
+{#if DEBUG}
+  <div class="fixed top-0 right-0 left-0 z-10">
     <Debug {data} />
   </div>
 {/if}
@@ -42,21 +30,27 @@
     style={bgStyle ? bgStyle : undefined}
   >
     <div
-      class="flex flex-col justify-center gap-8 lg:gap-0 lg:grid lg:grid-rows-1 {imgURL
-        ? 'lg:grid-cols-2'
+      class="flex flex-col justify-center gap-8 lg:gap-0 lg:w-full lg:grid lg:grid-rows-1 {imgURL
+        ? 'lg:grid-cols-[2fr,auto,minmax(2rem,5%),auto,2fr]'
         : ''} place-items-center h-full"
-      style="color: {messageColor};
+      style="
+      color: {messageColor};
       --img-width: {imgWidth};
       --img-height: {imgHeight};"
     >
-      <WavyText text={message.split('\n')} textAlign={msgAlign[messageAlign]} />
+      <WavyText
+        text={message.split('\n')}
+        textAlign={t.textAlign[messageAlign]}
+        className={imgURL ? 'lg:w-max lg:col-start-2' : ''}
+      />
       {#if imgURL}
         <img
           src={imgURL}
-          alt=""
-          class=" max-h-52 lg:max-h-none {objFit[
+          alt="a visual for the brb message"
+          class="col-start-4 max-h-52 lg:max-h-none {t.objectFit[
             imgObjectFit
-          ]} w-[var(--img-width)] h-[var(--img-height)] rounded"
+          ]} w-[var(--img-width)] h-[var(--img-height)] rounded
+          scale-50 lg:scale-100"
         />
       {/if}
     </div>

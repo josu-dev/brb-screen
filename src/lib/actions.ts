@@ -31,6 +31,7 @@ export const stopPropagation = ((node, parameter = false) => {
 
 }) satisfies Action<HTMLElement, keyof HTMLElementEventMap | false>;
 
+
 export const nojs = ((node) => {
   node.classList.add('hidden');
 }) satisfies Action<HTMLElement>;
