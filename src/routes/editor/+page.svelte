@@ -1,11 +1,7 @@
 <script lang="ts">
   import { dev } from '$app/environment';
   import { page } from '$app/stores';
-  // import {
-  //   defineCommands,
-  //   registerCommands,
-  //   unregisterCommands,
-  // } from '$cmp/cmdpalette/CommandPalette.svelte';
+  import { helpers } from '$cmp/CommandPalette.svelte';
   import ColorInput from '$cmp/form/ColorInput.svelte';
   import SelectInput from '$cmp/form/SelectInput.svelte';
   import TextAreaInput from '$cmp/form/TextAreaInput.svelte';
@@ -18,7 +14,7 @@
   import Section from '$lib/editor/Section.svelte';
   import { objectFit, textAlign } from '$lib/editor/enums';
   import { encodeEditorConfig } from '$lib/editor/validation';
-  // import { onDestroy, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import toast from 'svelte-french-toast';
   import { Pane, Splitpanes } from 'svelte-splitpanes';
   import { superForm } from 'sveltekit-superforms/client';
@@ -45,7 +41,7 @@
       $configForm.img_width ?? '',
       $configForm.img_height ?? '',
       $configForm.img_obj_fit ?? '',
-      $configForm.bg_style ?? ''
+      $configForm.bg_style ?? '',
     );
 
   $: previewConfig = {
@@ -74,63 +70,47 @@
     screenPreview.fullscreen();
   }
 
-  // function canActionRun() {
-  //   return $page.url.pathname === '/editor';
-  // }
+  onMount(() => {
+    const unregisterCommands = helpers.registerCommand([
+      {
+        name: 'Copy generated URL',
+        description: 'Copy the generated Screen URL to the clipboard',
+        keywords: ['copy', 'url', 'link', 'clipboard', 'generated', 'preview'],
+        action: () => {
+          navigator.clipboard.writeText(generatedURL).then(
+            () => {
+              toast.success('Copied generated screen URL to clipboard');
+            },
+            () => {
+              toast.error(
+                'Error attempting to copy the generated screen URL to clipboard',
+              );
+            },
+          );
+        },
+      },
+      {
+        name: 'Reset preview',
+        description: 'Reset the screen preview to the default state',
+        keywords: ['reset', 'reload', 'preview'],
+        action: previewReload,
+      },
+      {
+        name: 'Toggle debug info',
+        description: 'Toggle the debug info in the screen preview',
+        keywords: ['debug', 'info', 'preview'],
+        action: previewToggleDebug,
+      },
+      {
+        name: 'Fullscreen preview',
+        description: 'Toggle fullscreen mode for the screen preview',
+        keywords: ['fullscreen', 'preview'],
+        action: previewFullscreen,
+      },
+    ]);
 
-  // const editorCommands = defineCommands([
-  //   {
-  //     actionId: 'editor-copy-generated-url',
-  //     title: 'Copy generated URL',
-  //     subTitle: 'Copy the generated Screen URL to the clipboard',
-  //     keywords: ['copy', 'url', 'link', 'clipboard', 'generated', 'preview'],
-  //     onRun: () => {
-  //       navigator.clipboard.writeText(generatedURL).then(
-  //         () => {
-  //           toast.success('Copied generated screen URL to clipboard');
-  //         },
-  //         () => {
-  //           toast.error(
-  //             'Error attempting to copy the generated screen URL to clipboard'
-  //           );
-  //         }
-  //       );
-  //     },
-  //     canActionRun,
-  //   },
-  //   {
-  //     actionId: 'editor-reset-preview',
-  //     title: 'Reset preview',
-  //     subTitle: 'Reset the screen preview to the default state',
-  //     keywords: ['reset', 'reload', 'preview'],
-  //     onRun: previewReload,
-  //     canActionRun,
-  //   },
-  //   {
-  //     actionId: 'editor-toggle-debug-info',
-  //     title: 'Toggle debug info',
-  //     subTitle: 'Toggle the debug info in the screen preview',
-  //     keywords: ['debug', 'info', 'preview'],
-  //     onRun: previewToggleDebug,
-  //     canActionRun,
-  //   },
-  //   {
-  //     actionId: 'editor-toggle-fullscreen-preview',
-  //     title: 'Fullscreen preview',
-  //     subTitle: 'Toggle fullscreen mode for the screen preview',
-  //     keywords: ['fullscreen', 'preview'],
-  //     onRun: previewFullscreen,
-  //     canActionRun,
-  //   },
-  // ]);
-
-  // onMount(() => {
-  //   registerCommands(editorCommands, true);
-  // });
-
-  // onDestroy(() => {
-  //   unregisterCommands(editorCommands);
-  // });
+    return unregisterCommands;
+  });
 </script>
 
 <main
