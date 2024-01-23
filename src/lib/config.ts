@@ -2,7 +2,7 @@ import { objectFit, textAlign } from './editor/enums';
 
 export const REPOSITORY_URL = 'https://github.com/J-Josu/brb-screen';
 
-export const DEPLOY_DOMAIN = 'https://brb-screen.vercel.app/';
+export const DEPLOY_DOMAIN = 'https://brb-screen.vercel.app';
 
 export const DEFAULT_EDITOR_CONFIG = {
   preset: 'minimal',
