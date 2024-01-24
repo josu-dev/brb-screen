@@ -1,5 +1,4 @@
 <script context="module">
-  export { defineCommand } from 'svelte-hypercommands';
   export {
     elements,
     helpers,
@@ -17,6 +16,11 @@
 
   const globalPages = definePage([
     {
+      name: 'Home',
+      url: '/',
+      description: 'Application home',
+    },
+    {
       name: 'Bath',
       url: '/bath',
       description: 'Bath screen',
@@ -30,11 +34,6 @@
       name: 'Enviroment',
       url: '/env',
       description: 'Managing enviroment variables screen',
-    },
-    {
-      name: 'Home',
-      url: '/',
-      description: 'Application home',
     },
     {
       name: 'Mate',
@@ -51,44 +50,21 @@
       url: '/unexpected',
       description: 'Something unexpected happened screen',
     },
+    {
+      name: 'Repository',
+      url: REPOSITORY_URL,
+      description: 'Project repository',
+    },
   ]);
 
   const globalCommands = defineCommand([
     {
-      id: 'global:navigate_home',
-      name: 'Home',
-      description: 'Navigate to the home page',
-      shortcut: '$mod+Shift+H',
-      action: () => {
-        goto('/');
-      },
-    },
-    {
-      id: 'global:navigate_editor',
-      name: 'Editor',
+      id: 'global:open_editor',
+      name: 'Open editor',
       description: 'Navigate to the editor page',
       shortcut: '$mod+Shift+E',
-      action: () => {
+      onAction: () => {
         goto('/editor');
-      },
-    },
-    {
-      id: 'global:fullscreen',
-      name: 'Fullscreen',
-      description: 'Toggle fullscreen mode',
-      shortcut: '$mod+Shift+F',
-      action: () => {
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
-          return;
-        }
-
-        window.document.body.requestFullscreen().catch((err) => {
-          toast.error('Error attempting to enable fullscreen mode');
-          console.error(
-            `[CommandPalette] Error attempting to enable fullscreen mode: ${err.message} (${err.name})`,
-          );
-        });
       },
     },
     {
@@ -96,7 +72,7 @@
       name: 'Copy Current URL',
       description: 'Copy the current URL to the clipboard',
       shortcut: '$mod+Shift+C',
-      action: () => {
+      onAction: () => {
         const url = DEPLOY_DOMAIN + $page.url.pathname + $page.url.search;
         navigator.clipboard.writeText(url.replace(/\/$/, '')).then(
           () => {
@@ -112,8 +88,27 @@
       id: 'global:open_repository',
       name: 'Open Repository',
       description: 'Open the repository in a new tab',
-      action: () => {
+      onAction: () => {
         window.open(REPOSITORY_URL, '_blank', 'noopener,noreferrer');
+      },
+    },
+    {
+      id: 'global:fullscreen',
+      name: 'Fullscreen',
+      description: 'Toggle fullscreen mode',
+      shortcut: '$mod+Shift+F',
+      onAction: () => {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          return;
+        }
+
+        window.document.body.requestFullscreen().catch((err) => {
+          toast.error('Error attempting to enable fullscreen mode');
+          console.error(
+            `[CommandPalette] Error attempting to enable fullscreen mode: ${err.message} (${err.name})`,
+          );
+        });
       },
     },
     {
@@ -121,7 +116,7 @@
       name: 'Reload Window',
       description: 'Reload the window',
       shortcut: '$mod+Shift+R',
-      action: () => {
+      onAction: () => {
         window.location.reload();
       },
     },
@@ -130,7 +125,7 @@
       name: 'Admin Mode',
       description: 'Toggle admin mode',
       shortcut: '$mod+Shift+A',
-      action: () => {
+      onAction: () => {
         document.body.contentEditable =
           document.body.contentEditable === 'true' ? 'false' : 'true';
       },
@@ -143,8 +138,7 @@
 </div>
 
 <style>
-  div :global(.palette-container) {
-    z-index: 1000;
-    background-color: red;
+  div :global(.palette-panel) {
+    z-index: 100;
   }
 </style>

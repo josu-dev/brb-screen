@@ -76,7 +76,7 @@
         name: 'Copy generated URL',
         description: 'Copy the generated Screen URL to the clipboard',
         keywords: ['copy', 'url', 'link', 'clipboard', 'generated', 'preview'],
-        action: () => {
+        onAction: () => {
           navigator.clipboard.writeText(generatedURL).then(
             () => {
               toast.success('Copied generated screen URL to clipboard');
@@ -93,19 +93,19 @@
         name: 'Reset preview',
         description: 'Reset the screen preview to the default state',
         keywords: ['reset', 'reload', 'preview'],
-        action: previewReload,
+        onAction: previewReload,
       },
       {
         name: 'Toggle debug info',
         description: 'Toggle the debug info in the screen preview',
         keywords: ['debug', 'info', 'preview'],
-        action: previewToggleDebug,
+        onAction: previewToggleDebug,
       },
       {
         name: 'Fullscreen preview',
         description: 'Toggle fullscreen mode for the screen preview',
         keywords: ['fullscreen', 'preview'],
-        action: previewFullscreen,
+        onAction: previewFullscreen,
       },
     ]);
 

@@ -41,7 +41,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.5",
     "svelte-french-toast": "^1.2.0",
-    "svelte-hypercommands": "^0.0.4",
+    "svelte-hypercommands": "^0.0.7",
     "svelte-splitpanes": "^0.8.0",
     "tinykeys": "^2.1.0"
   }
