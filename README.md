@@ -4,7 +4,7 @@ A simple PWA for displaying brb scenes when you're away from your stream for a m
 
 Powered by [SvelteKit](https://kit.svelte.dev/) ❤.
 
-> Feel free to fork and modify this project to your liking and needs or use it from your [browser](https://brb-screen.vercel.app/).
+> Feel free to fork and modify this project to your liking and needs or simply use it from your [browser](https://brb-screen.vercel.app/).
 
 
 ## Features
@@ -16,5 +16,5 @@ Powered by [SvelteKit](https://kit.svelte.dev/) ❤.
   - [x] Reload window
   - [x] Share current screen as URL
   - [ ] Toggle dark mode
-- [ ] Customizable screen
-- [ ] Customizable screen from URL
+- [X] Customizable screen
+- [X] Customizable screen from URL

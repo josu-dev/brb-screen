@@ -16,6 +16,7 @@
   import { encodeEditorConfig } from '$lib/editor/validation';
   import { onMount } from 'svelte';
   import toast from 'svelte-french-toast';
+  import { defineCommand } from 'svelte-hypercommands/HyperPalette.svelte';
   import { Pane, Splitpanes } from 'svelte-splitpanes';
   import { superForm } from 'sveltekit-superforms/client';
   import DebugIcon from '~icons/carbon/debug';
@@ -71,43 +72,41 @@
   }
 
   onMount(() => {
-    const unregisterCommands = helpers.registerCommand([
-      {
-        name: 'Copy generated URL',
-        description: 'Copy the generated Screen URL to the clipboard',
-        keywords: ['copy', 'url', 'link', 'clipboard', 'generated', 'preview'],
-        onAction: () => {
-          navigator.clipboard.writeText(generatedURL).then(
-            () => {
-              toast.success('Copied generated screen URL to clipboard');
-            },
-            () => {
-              toast.error(
-                'Error attempting to copy the generated screen URL to clipboard',
-              );
-            },
-          );
+    const unregisterCommands = helpers.registerCommand(
+      defineCommand(
+        {
+          name: 'Copy generated URL',
+          description: 'Copy the generated Screen URL to the clipboard',
+          onAction: () => {
+            navigator.clipboard.writeText(generatedURL).then(
+              () => {
+                toast.success('Copied generated screen URL to clipboard');
+              },
+              () => {
+                toast.error(
+                  'Error attempting to copy the generated screen URL to clipboard',
+                );
+              },
+            );
+          },
         },
-      },
-      {
-        name: 'Reset preview',
-        description: 'Reset the screen preview to the default state',
-        keywords: ['reset', 'reload', 'preview'],
-        onAction: previewReload,
-      },
-      {
-        name: 'Toggle debug info',
-        description: 'Toggle the debug info in the screen preview',
-        keywords: ['debug', 'info', 'preview'],
-        onAction: previewToggleDebug,
-      },
-      {
-        name: 'Fullscreen preview',
-        description: 'Toggle fullscreen mode for the screen preview',
-        keywords: ['fullscreen', 'preview'],
-        onAction: previewFullscreen,
-      },
-    ]);
+        {
+          name: 'Reset preview',
+          description: 'Reset the screen preview to the default state',
+          onAction: previewReload,
+        },
+        {
+          name: 'Toggle debug info',
+          description: 'Toggle the debug info in the screen preview',
+          onAction: previewToggleDebug,
+        },
+        {
+          name: 'Fullscreen preview',
+          description: 'Toggle fullscreen mode for the screen preview',
+          onAction: previewFullscreen,
+        },
+      ),
+    );
 
     return unregisterCommands;
   });

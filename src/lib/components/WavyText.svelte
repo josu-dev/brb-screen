@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   export let text: string | string[];
   export let textAlign: 'left' | 'center' | 'right' = 'center';
   export let className = '';
@@ -41,6 +43,22 @@
   }
 }
 </style>`;
+
+  // Programatically force the animation reset for preventing accumulative frame dropping in chrome 
+  let el: HTMLElement;
+  onMount(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const id = setInterval(() => {
+      el?.classList.toggle('no-animation');
+      timeoutId = setTimeout(() => el?.classList.toggle('no-animation'), 20);
+    }, animationDuration * 1000);
+
+    return () => {
+      clearInterval(id);
+      clearTimeout(timeoutId);
+    };
+  });
 </script>
 
 <div class={className}>
@@ -54,6 +72,7 @@
       --wavy-reflex-animation: wavy-reflex-{charCount};
       --wavy-delay: {animationDelay}s;
       --wavy-duration: {animationDuration}s;"
+      bind:this={el}
     >
       <div>
         {#each text.split('') as char, charIdx (charIdx)}
@@ -74,12 +93,13 @@
       --wavy-delay: {animationDelay}s;
       --wavy-duration: {animationDuration}s;
       "
+      bind:this={el}
     >
       {#each text as line, lineIdx (lineIdx)}
         {@const lastLine = lineIdx === text.length - 1}
         {@const accCharCount = text.reduce(
           (acc, line, idx) => acc + (idx < lineIdx ? line.length : 0),
-          0
+          0,
         )}
         <div>
           {#each line.split('') as char, charIdx (charIdx + accCharCount)}
@@ -118,6 +138,10 @@
       rgba(0, 0, 0, 0) 30%,
       rgba(0, 0, 0, 0.1)
     );
+  }
+  .wavy.no-animation span,
+  .wavy.no-animation span:before {
+    animation: none;
   }
 
   /* template ?
