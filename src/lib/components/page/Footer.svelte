@@ -1,4 +1,5 @@
 <script>
+  import { REPOSITORY_URL } from '$lib/config';
   import IconGithub from '~icons/mdi/github';
 
   /** @type {'fixed'|'absolute'|'block'}*/
@@ -9,7 +10,7 @@
   class="{display} bottom-0 left-0 p-2 text-sm tracking-wider font-light text-gray-100 font-[Inter]"
 >
   <a
-    href="https://github.com/J-Josu/brb-screen"
+    href={REPOSITORY_URL}
     target="_blank"
     rel="noopener noreferrer"
     class="hover:text-gray-300 hover:underline underline-offset-2"

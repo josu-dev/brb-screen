@@ -1,12 +1,11 @@
 {
   "name": "brb-screen",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
     "dev:start": "vite dev --open",
-    "dev:ngrok": "ngrok http --domain=8e54b21f7d3d-59178990996674649.ngrok-free.app 5173",
     "dev:gen-icons": "npx pwa-assets-generator --preset minimal ./static/icon/logo.png",
     "build": "vite build",
     "preview": "vite preview",
@@ -21,6 +20,8 @@
     "@iconify-json/tabler": "^1.1.86",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
     "@vite-pwa/assets-generator": "^0.0.8",
     "@vite-pwa/sveltekit": "^0.2.5",
     "autoprefixer": "^10.4.14",
@@ -28,6 +29,9 @@
     "postcss-load-config": "^4.0.1",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
+    "svelte-french-toast": "^1.2.0",
+    "svelte-hypercommands": "^0.1.4",
+    "svelte-splitpanes": "^0.8.0",
     "sveltekit-superforms": "^1.5.3",
     "tailwindcss": "^3.3.2",
     "tslib": "^2.4.1",
@@ -36,13 +40,5 @@
     "vite": "^4.4.2",
     "zod": "^3.22.1"
   },
-  "type": "module",
-  "dependencies": {
-    "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/forms": "^0.5.5",
-    "svelte-french-toast": "^1.2.0",
-    "svelte-hypercommands": "^0.0.4",
-    "svelte-splitpanes": "^0.8.0",
-    "tinykeys": "^2.1.0"
-  }
+  "type": "module"
 }
