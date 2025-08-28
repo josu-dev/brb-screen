@@ -3,6 +3,9 @@
   "version": "0.0.4",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "vite dev",
     "dev:local": "vite dev --host",
