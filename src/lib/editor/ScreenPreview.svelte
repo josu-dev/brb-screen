@@ -24,9 +24,7 @@
   export async function fullscreen() {
     container.requestFullscreen().catch((err) => {
       toast.error('Error attempting to enter editor preview fullscreen');
-      console.error(
-        `[Editor] Error attempting to enter editor preview fullscreen: ${err.message} (${err.name})`
-      );
+      console.error(`[Editor] Error attempting to enter editor preview fullscreen: ${err.message} (${err.name})`);
     });
   }
 
@@ -51,13 +49,10 @@
       </div>
     {/if}
 
-    <div
-      class="h-full flex flex-col justify-center items-center"
-      style={bgStyle ? bgStyle : undefined}
-    >
+    <div class="h-full flex flex-col justify-center items-center" style={bgStyle ? bgStyle : undefined}>
       <div
         class="flex flex-col justify-center gap-8 lg:gap-0 lg:w-full lg:grid lg:grid-rows-1 {imgURL
-          ? 'lg:grid-cols-[2fr,auto,minmax(2rem,5%),auto,2fr]'
+          ? 'lg:grid-cols-[2fr_auto_minmax(2rem,5%)_auto_2fr]'
           : ''} place-items-center h-full"
         style="
         color: {messageColor};
@@ -88,7 +83,9 @@
 <style lang="postcss">
   .preview-container {
     font-family: RampartOne, cursive;
-    box-shadow: 0px 0px 0px 1px theme('colors.slate.300'), 0px 0px 0px 2px black;
+    box-shadow:
+      0px 0px 0px 1px var(--color-slate-300),
+      0px 0px 0px 2px black;
   }
 
   .preview-container::-webkit-resizer {

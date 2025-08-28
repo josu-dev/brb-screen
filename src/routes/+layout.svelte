@@ -5,7 +5,7 @@
   import { onMount } from 'svelte';
   import toast, { Toaster } from 'svelte-french-toast';
   import { pwaInfo } from 'virtual:pwa-info';
-  import '../app.postcss';
+  import '../app.css';
 
   onMount(async () => {
     if (pwaInfo) {

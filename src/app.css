@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
 
 
 /* https://fonts.google.com/specimen/Rampart+One?preview.text=Preparando%20los%20mates,&preview.text_type=custom&sort=popularity */
@@ -22,8 +21,8 @@
 
 html,
 body {
-  @apply h-full overflow-hidden  font-sans;
-  font-family: Inter, sans-serif;
+  @apply h-full overflow-hidden;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
@@ -32,4 +31,8 @@ body {
 
 body > div {
   @apply h-full overflow-hidden;
+}
+
+button, select, option {
+  @apply cursor-pointer;
 }

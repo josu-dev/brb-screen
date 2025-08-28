@@ -43,7 +43,9 @@
   </div>
 {/if}
 
-<style>
+<style lang="postcss">
+  @reference "../app.css";
+
   .pwa-toast {
     position: fixed;
     right: 0;

@@ -2,17 +2,17 @@
   import { createEventDispatcher } from 'svelte';
   import toast from 'svelte-french-toast';
   import type { Action } from 'svelte/action';
+  import type { FullAutoFill } from 'svelte/elements';
   import CopyIcon from '~icons/tabler/copy';
 
   export let value: string;
   export let field: string;
   export let placeHolder = '';
-  export let type: 'text' | 'password' | 'email' | 'url' | 'tel' | 'search' =
-    'text';
+  export let type: 'text' | 'password' | 'email' | 'url' | 'tel' | 'search' = 'text';
   export let label: string;
   export let hint: string | undefined = undefined;
   export let readonly = false;
-  export let autocomplete = 'off';
+  export let autocomplete: FullAutoFill = 'off';
   export let required = false;
   export let minSize: number | undefined = undefined;
   export let maxSize: number | undefined = undefined;
@@ -38,7 +38,7 @@
       },
       () => {
         toast.error('Error attempting to copy current url to clipboard');
-      }
+      },
     );
   }
 </script>
@@ -97,6 +97,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "../../app.css";
+
   div:has(div input[required]:not(:read-only)) label::after {
     content: ' *';
     color: red;
@@ -121,7 +123,7 @@
     width: 0%;
     left: 50%;
     height: 1px;
-    background-color: theme(colors.zinc.300);
+    background-color: var(--color-zinc-300);
     position: absolute;
     bottom: -2px;
     transition: all 0.25s ease-out;
@@ -129,6 +131,6 @@
   .sliding:hover::before {
     width: 100%;
     left: 0.5px;
-    background-color: theme(colors.zinc.100);
+    background-color: var(--color-zinc-100);
   }
 </style>

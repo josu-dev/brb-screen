@@ -1,18 +1,18 @@
 <script lang="ts">
-  import type { FormPathLeaves, ZodValidation } from 'sveltekit-superforms';
+  import type { FullAutoFill } from 'svelte/elements';
+  import type { FormPathLeaves } from 'sveltekit-superforms';
   import type { SuperForm } from 'sveltekit-superforms/client';
   import { formFieldProxy } from 'sveltekit-superforms/client';
-  import type { AnyZodObject, z } from 'zod';
 
-  type T = $$Generic<AnyZodObject>;
+  type T = $$Generic<Record<string, unknown>>;
 
-  export let form: SuperForm<ZodValidation<T>, unknown>;
-  export let field: FormPathLeaves<z.infer<T>>;
+  export let form: SuperForm<T, unknown>;
+  export let field: FormPathLeaves<T>;
 
   export let label: string;
   export let hint: string | undefined = undefined;
   export let readonly = false;
-  export let autocomplete = 'off';
+  export let autocomplete: FullAutoFill = 'off';
 
   const { value, errors, constraints } = formFieldProxy(form, field);
 </script>
@@ -56,6 +56,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "../../../app.css";
+
   div:has(div input[required]:not(:read-only)) label::after {
     content: ' *';
     color: red;

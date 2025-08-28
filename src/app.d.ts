@@ -1,6 +1,7 @@
 /// <reference types="vite-plugin-pwa/client" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/svelte" />
+/// <reference types="unplugin-icons/types/svelte" />
 
 declare const __DATE__: string;
 declare const __RELOAD_SW__: boolean;
@@ -16,4 +17,3 @@ declare global {
     // interface Platform {}
   }
 }
-

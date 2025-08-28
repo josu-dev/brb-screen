@@ -115,6 +115,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "../../app.css";
+
   .wavy {
     text-align: var(--wavy-text-align);
     @apply text-3xl lg:text-6xl uppercase text-current;

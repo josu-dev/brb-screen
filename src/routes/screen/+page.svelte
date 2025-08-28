@@ -25,13 +25,10 @@
 {/if}
 
 <div class="h-full w-full bg-black">
-  <main
-    class="h-full flex flex-col justify-center items-center"
-    style={bgStyle ? bgStyle : undefined}
-  >
+  <main class="h-full flex flex-col justify-center items-center" style={bgStyle ? bgStyle : undefined}>
     <div
       class="flex flex-col justify-center gap-8 lg:gap-0 lg:w-full lg:grid lg:grid-rows-1 {imgURL
-        ? 'lg:grid-cols-[2fr,auto,minmax(2rem,5%),auto,2fr]'
+        ? 'lg:grid-cols-[2fr_auto_minmax(2rem,5%)_auto_2fr]'
         : ''} place-items-center h-full"
       style="
       color: {messageColor};

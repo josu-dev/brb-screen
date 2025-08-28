@@ -1,16 +1,15 @@
 <script lang="ts">
   import { get } from 'svelte/store';
-  import type { FormPathLeaves, ZodValidation } from 'sveltekit-superforms';
+  import type { FormPathLeaves } from 'sveltekit-superforms';
   import type { SuperForm } from 'sveltekit-superforms/client';
   import { formFieldProxy } from 'sveltekit-superforms/client';
-  import type { AnyZodObject, z } from 'zod';
 
-  type T = $$Generic<AnyZodObject>;
+  type T = $$Generic<Record<string, unknown>>;
 
   type Option = { value: string; text: string };
 
-  export let form: SuperForm<ZodValidation<T>, unknown>;
-  export let field: FormPathLeaves<z.infer<T>>;
+  export let form: SuperForm<T, unknown>;
+  export let field: FormPathLeaves<T>;
 
   export let label: string;
   export let hint: string | undefined = undefined;
@@ -78,6 +77,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "../../../app.css";
+
   div:has(div select[required]:enabled) label::after {
     content: ' *';
     color: red;

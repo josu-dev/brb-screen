@@ -1,19 +1,19 @@
 <script lang="ts">
   import { stopPropagation } from '$lib/actions';
-  import type { FormPathLeaves, ZodValidation } from 'sveltekit-superforms';
+  import type { FullAutoFill } from 'svelte/elements';
+  import type { FormPathLeaves } from 'sveltekit-superforms';
   import type { SuperForm } from 'sveltekit-superforms/client';
   import { formFieldProxy } from 'sveltekit-superforms/client';
-  import type { AnyZodObject, z } from 'zod';
 
-  type T = $$Generic<AnyZodObject>;
+  type T = $$Generic<Record<string, unknown>>;
 
-  export let form: SuperForm<ZodValidation<T>, unknown>;
-  export let field: FormPathLeaves<z.infer<T>>;
+  export let form: SuperForm<T, unknown>;
+  export let field: FormPathLeaves<T>;
 
   export let label: string;
   export let hint: string | undefined = undefined;
   export let readonly = false;
-  export let autocomplete = 'off';
+  export let autocomplete: FullAutoFill = 'off';
   export let spellcheck = false;
   export let startRows = 3;
   export let textAreaMaxHeight = '140px';
@@ -51,7 +51,7 @@
       ring-1 ring-inset ring-blue-900"
       style="max-height: {textAreaMaxHeight};"
       use:stopPropagation={stopKeydownPropagation ? 'keydown' : false}
-    />
+    ></textarea>
     {#if $errors}
       <p class=" text-sm text-red-500">
         {$errors}
@@ -64,6 +64,8 @@
 </div>
 
 <style lang="postcss">
+  @reference "../../../app.css";
+
   div:has(div textarea[required]:not(:read-only)) label::after {
     content: ' *';
     color: red;

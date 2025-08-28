@@ -22,7 +22,7 @@
   import DebugIcon from '~icons/carbon/debug';
   import FullscreenIcon from '~icons/mdi/fullscreen';
   import ReloadIcon from '~icons/tabler/reload';
-  import './splitpanesreset.postcss';
+  import './splitpanesreset.css';
 
   const ENABLE_DEBUG = dev && true;
 
@@ -83,9 +83,7 @@
                 toast.success('Copied generated screen URL to clipboard');
               },
               () => {
-                toast.error(
-                  'Error attempting to copy the generated screen URL to clipboard',
-                );
+                toast.error('Error attempting to copy the generated screen URL to clipboard');
               },
             );
           },
@@ -112,29 +110,17 @@
   });
 </script>
 
-<main
-  class="2xl:max-w-[112rem] mx-auto flex w-full h-full max-h-full text-zinc-200 bg-slate-950"
->
+<main class="2xl:max-w-[112rem] mx-auto flex w-full h-full max-h-full text-zinc-200 bg-slate-950">
   <Splitpanes theme="brb-screen">
     <Pane size={35} minSize={25}>
       <Section let:S className="h-full">
         <S.Title type="h1">Editor</S.Title>
-        <S.Content className="px-1 overflow-y-auto scrollbar-hidden pb-8">
-          <form
-            method="POST"
-            action="?/gotourl"
-            on:submit|preventDefault
-            class="grid gap-4 pt-4"
-          >
+        <S.Content className="px-1 pb-8 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <form method="POST" action="?/gotourl" on:submit|preventDefault class="grid gap-4 pt-4">
             <div class="flex flex-col p-4 rounded-lg border border-blue-900">
               <h3 class="text-lg font-medium">Message</h3>
               <div class="flex flex-col ml-1">
-                <TextAreaInput
-                  form={configSForm}
-                  field="msg"
-                  label=""
-                  stopKeydownPropagation
-                />
+                <TextAreaInput form={configSForm} field="msg" label="" stopKeydownPropagation />
                 <div class="flex flex-wrap gap-x-8 max-w-sm">
                   <SelectInput
                     form={configSForm}
@@ -164,18 +150,8 @@
               <div class="flex flex-col ml-2">
                 <UrlInput form={configSForm} field="img_url" label="URL" />
                 <div class="flex flex-wrap gap-x-8 max-w-md">
-                  <TextInput
-                    form={configSForm}
-                    field="img_width"
-                    label="Width"
-                    className="w-[12ch]"
-                  />
-                  <TextInput
-                    form={configSForm}
-                    field="img_height"
-                    label="Height"
-                    className="w-[12ch]"
-                  />
+                  <TextInput form={configSForm} field="img_width" label="Width" className="w-[12ch]" />
+                  <TextInput form={configSForm} field="img_height" label="Height" className="w-[12ch]" />
                   <SelectInput
                     form={configSForm}
                     field="img_obj_fit"
@@ -222,40 +198,17 @@
         <div class="flex justify-between @container">
           <S.Title type="h2">Preview</S.Title>
           <div class=" flex gap-2 @lg:gap-4 self-end">
-            <Button
-              on:click={previewFullscreen}
-              icon={FullscreenIcon}
-              className="self-end"
-            >
-              Fullscreen
-            </Button>
-            <Button
-              on:click={previewReload}
-              icon={ReloadIcon}
-              className="self-end"
-            >
-              Reset preview
-            </Button>
+            <Button on:click={previewFullscreen} icon={FullscreenIcon} className="self-end">Fullscreen</Button>
+            <Button on:click={previewReload} icon={ReloadIcon} className="self-end">Reset preview</Button>
             {#if ENABLE_DEBUG}
-              <Button
-                on:click={previewToggleDebug}
-                icon={DebugIcon}
-                className="self-end"
-              >
-                Debug info
-              </Button>
+              <Button on:click={previewToggleDebug} icon={DebugIcon} className="self-end">Debug info</Button>
             {/if}
           </div>
         </div>
         <S.Content className="p-4">
           <ScreenPreview config={previewConfig} bind:this={screenPreview} />
           <div class="flex flex-col mt-8 justify-around">
-            <CopyableText
-              field="link"
-              label="Generated URL"
-              value={generatedURL}
-              readonly
-            />
+            <CopyableText field="link" label="Generated URL" value={generatedURL} readonly />
           </div>
         </S.Content>
       </Section>

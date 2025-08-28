@@ -2,6 +2,7 @@ import { DEFAULT_EDITOR_CONFIG } from '$lib/config';
 import { encodeEditorConfig, screenConfigSchema, type ScreenConfig } from '$lib/editor/validation';
 import { makeSearchParamsSchema } from '$lib/searchParams';
 import { redirect } from '@sveltejs/kit';
+import { zod } from 'sveltekit-superforms/adapters';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import type { Actions, PageServerLoad } from './$types';
@@ -49,7 +50,7 @@ export const load = (async ({ url }) => {
     screenConfig.img_url = url.origin + screenConfig.img_url;
   }
 
-  const configForm = await superValidate(screenConfig, screenConfigSchema);
+  const configForm = await superValidate(screenConfig, zod(screenConfigSchema));
 
   return {
     configForm: configForm,
@@ -59,7 +60,7 @@ export const load = (async ({ url }) => {
 
 export const actions = {
   gotourl: async ({ request, url }) => {
-    const configForm = await superValidate(request, screenConfigSchema);
+    const configForm = await superValidate(request, zod(screenConfigSchema));
     if (!configForm.valid) {
       console.error(configForm.errors);
 
